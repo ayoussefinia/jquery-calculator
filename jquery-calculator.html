@@ -84,27 +84,78 @@ let secondNum = "";
 let haveOper = false;
 
 $(".btn").click(function (event){
-   if($(this).hasClass("number")){
-       console.log("this is a number");
-       console.log($(this).attr("value"));
+    if($(this).hasClass("number")){
+        console.log("this is a number");
+        console.log($(this).attr("value"));
 
-       if(haveOper){
+        if(haveOper){
+             //add the number to the first-number box
+             secondNum += $(this).attr("value");
+             $("#second-number").text(secondNum);
+
+        } else {
             //add the number to the first-number box
-            secondNum += $(this).attr("value");
-            $("#second-number").text(secondNum);
-
-       } else {
-           //add the number to the first-number box
-           firstNum += $(this).attr("value");
-           $("#first-number").text(firstNum);
-       }
+            firstNum += $(this).attr("value");
+            $("#first-number").text(firstNum);
+        }
 
 
-   } else if ($(this).hasClass("operator")) {
-       console.log($(this).attr("value"));
-       haveOper = true;
-   }
+    } else if ($(this).hasClass("operator")) {
+        console.log($(this).attr("value"));
+        oper = $(this).attr("value");
+
+        haveOper = true;
+        if(oper == "plus"){
+            $("#operator").text("+");
+        } else if (oper == "minus"){
+            $("#operator").text("-");
+        } else if (oper == "times"){
+            $("#operator").text("*");
+        } else if (oper == "divide"){
+            $("#operator").text("/");
+        }else {
+            $("#operator").text("^");
+        }
+        
+
+
+    } else if ($(this).hasClass("equal")){
+        let intfirst = parseInt(firstNum);
+        let intSecond = parseInt(secondNum);
+        let res = 0;
+        console.log(oper);
+        if(oper == "plus"){
+            res = intfirst + intSecond;
+        } else if (oper == "minus"){
+            res = intfirst - intSecond;
+        } else if (oper == "times"){
+            res = intfirst * intSecond;
+        } else if (oper == "divide"){
+            res = intfirst / intSecond;
+        }else {
+            res = intfirst ^ intSecond;
+        }
+        console.log(res);
+        $("#result").text(res);
+    } else if($(this).hasClass("clear")){
+        clear();
+    }
 });
+
+function clear(){
+    //clear your globals
+    firstNum = "";
+    oper = "";
+    operatorSymbol = "";
+    secondNum = "";
+    haveOper = false;
+
+    //clear the text boxes
+    $("#first-number").text("");
+    $("#second-number").text("");
+    $("#operator").text("");
+    $("#result").text("");
+}
 </script>
 
 </body>
